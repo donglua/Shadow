@@ -55,6 +55,7 @@ import com.tencent.shadow.core.runtime.container.HostActivityDelegator
  * @author cubershi
  */
 class ShadowActivityDelegate(private val mDI: DI) : HostActivityDelegate, ShadowDelegate() {
+
     companion object {
         const val PLUGIN_OUT_STATE_KEY = "PLUGIN_OUT_STATE_KEY"
         val mLogger = LoggerFactory.getLogger(ShadowActivityDelegate::class.java)
@@ -391,5 +392,9 @@ class ShadowActivityDelegate(private val mDI: DI) : HostActivityDelegate, Shadow
 
     override fun onMultiWindowModeChanged(isInMultiWindowMode: Boolean, newConfig: Configuration?) {
         mPluginActivity.onMultiWindowModeChanged(isInMultiWindowMode, newConfig)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return mPluginActivity.onSupportNavigateUp()
     }
 }

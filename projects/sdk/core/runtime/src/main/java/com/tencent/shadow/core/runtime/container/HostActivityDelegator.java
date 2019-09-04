@@ -765,8 +765,6 @@ public interface HostActivityDelegator {
 
     boolean superDispatchKeyEvent(KeyEvent event);
 
-    boolean superDispatchKeyShortcutEvent(KeyEvent event);
-
     boolean superDispatchTouchEvent(MotionEvent ev);
 
     boolean superDispatchTrackballEvent(MotionEvent ev);
@@ -1326,4 +1324,6 @@ public interface HostActivityDelegator {
     void superOnActionModeFinished(ActionMode mode);
 
     void superOnPointerCaptureChanged(boolean hasCapture);
+
+    boolean superOnSupportNavigateUp();
 }

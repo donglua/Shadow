@@ -317,7 +317,7 @@ apply plugin: 'com.jfrog.bintray'
 
 bintray {
     user = "donglua" //this usually comes from gradle.properties file in ~/.gradle
-    key = "" //this usually comes from gradle.properties file in ~/.gradle
+    key = "c5aab70675dad58178aff3fc225795dbfd35df81" //this usually comes from gradle.properties file in ~/.gradle
 
     dryRun = false //Whether to run this as dry-run, without deploying
     publish = true //If version should be auto published after an upload

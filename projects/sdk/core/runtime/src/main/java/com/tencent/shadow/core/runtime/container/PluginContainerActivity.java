@@ -87,6 +87,8 @@ import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.Toolbar;
 
+import androidx.fragment.app.FragmentActivity;
+
 import com.tencent.shadow.core.runtime.BuildConfig;
 import com.tencent.shadow.core.runtime.ShadowActivity;
 
@@ -109,7 +111,7 @@ import static com.tencent.shadow.core.runtime.container.DelegateProvider.PROCESS
  *
  * @author cubershi
  */
-public class PluginContainerActivity extends Activity implements HostActivity, HostActivityDelegator {
+public class PluginContainerActivity extends FragmentActivity implements HostActivity, HostActivityDelegator {
     private static final String TAG = "PluginContainerActivity";
 
     HostActivityDelegate hostActivityDelegate;
@@ -275,15 +277,6 @@ public class PluginContainerActivity extends Activity implements HostActivity, H
     }
 
     @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        if (hostActivityDelegate != null) {
-            return hostActivityDelegate.dispatchKeyEvent(event);
-        } else {
-            return super.dispatchKeyEvent(event);
-        }
-    }
-
-    @Override
     public void finish() {
         if (hostActivityDelegate != null) {
             hostActivityDelegate.finish();
@@ -365,7 +358,7 @@ public class PluginContainerActivity extends Activity implements HostActivity, H
     }
 
     @Override
-    public Object onRetainNonConfigurationInstance() {
+    public Object onRetainCustomNonConfigurationInstance() {
         if (hostActivityDelegate != null) {
             return hostActivityDelegate.onRetainNonConfigurationInstance();
         } else {
@@ -870,14 +863,6 @@ public class PluginContainerActivity extends Activity implements HostActivity, H
 
     public boolean superHasWindowFocus() {
         return super.hasWindowFocus();
-    }
-
-    public boolean superDispatchKeyEvent(KeyEvent event) {
-        return super.dispatchKeyEvent(event);
-    }
-
-    public boolean superDispatchKeyShortcutEvent(KeyEvent event) {
-        return super.dispatchKeyShortcutEvent(event);
     }
 
     public boolean superDispatchTouchEvent(MotionEvent ev) {
@@ -2094,6 +2079,11 @@ public class PluginContainerActivity extends Activity implements HostActivity, H
     @TargetApi(Build.VERSION_CODES.O)
     public void superOnPointerCaptureChanged(boolean hasCapture) {
         super.onPointerCaptureChanged(hasCapture);
+    }
+
+    @Override
+    public boolean superOnSupportNavigateUp() {
+        return false;
     }
 
     @Override

@@ -49,6 +49,8 @@ dependencies {
     implementation 'com.tencent.shadow.core:runtime'
     implementation project(':custom-view')
 
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
