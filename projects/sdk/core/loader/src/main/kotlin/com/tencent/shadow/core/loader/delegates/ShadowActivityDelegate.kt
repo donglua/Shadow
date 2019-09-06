@@ -397,4 +397,8 @@ class ShadowActivityDelegate(private val mDI: DI) : HostActivityDelegate, Shadow
     override fun onSupportNavigateUp(): Boolean {
         return mPluginActivity.onSupportNavigateUp()
     }
+
+    override fun setSupportActionBar(toolbar: androidx.appcompat.widget.Toolbar?): Boolean {
+        return mPluginActivity.setSupportActionBar(toolbar)
+    }
 }

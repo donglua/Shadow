@@ -42,6 +42,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 
+import androidx.appcompat.widget.Toolbar;
+
 import com.tencent.shadow.core.runtime.container.HostActivityDelegator;
 
 import java.util.List;
@@ -359,4 +361,7 @@ public abstract class PluginActivity extends ShadowContext implements Window.Cal
         return mHostActivityDelegator.superOnSupportNavigateUp();
     }
 
+    public boolean setSupportActionBar(Toolbar toolbar) {
+        return mHostActivityDelegator.superSetSupportActionBar(toolbar);
+    }
 }

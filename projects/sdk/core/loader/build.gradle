@@ -44,6 +44,9 @@ dependencies {
 
     compileOnly project(':runtime')
     compileOnly project(':common')
+
+    compileOnly 'androidx.appcompat:appcompat:1.0.2'
+
     api project(':load-parameters')
     implementation 'com.tencent.shadow.coding:lint'
 }

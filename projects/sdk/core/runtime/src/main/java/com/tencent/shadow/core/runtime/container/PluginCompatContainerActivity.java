@@ -37,6 +37,15 @@ public class PluginCompatContainerActivity extends PluginContainerActivity {
     }
 
     @Override
+    public boolean superSetSupportActionBar(androidx.appcompat.widget.Toolbar toolbar) {
+        if (hostActivityDelegate != null) {
+            return hostActivityDelegate.setSupportActionBar(toolbar);
+        } else {
+            return false;
+        }
+    }
+
+    @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (hostActivityDelegate != null) {
             return hostActivityDelegate.dispatchKeyEvent(event);

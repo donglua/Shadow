@@ -37,6 +37,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 
+import androidx.appcompat.widget.Toolbar;
+
 /**
  * HostActivity的被委托者接口
  * <p>
@@ -148,4 +150,6 @@ public interface HostActivityDelegate {
     void onMultiWindowModeChanged(boolean isInMultiWindowMode, Configuration newConfig);
 
     boolean onSupportNavigateUp();
+
+    boolean setSupportActionBar(Toolbar toolbar);
 }

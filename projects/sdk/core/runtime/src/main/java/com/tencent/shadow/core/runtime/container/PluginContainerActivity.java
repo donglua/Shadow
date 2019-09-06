@@ -2087,6 +2087,11 @@ public class PluginContainerActivity extends FragmentActivity implements HostAct
     }
 
     @Override
+    public boolean superSetSupportActionBar(androidx.appcompat.widget.Toolbar toolbar) {
+        return false;
+    }
+
+    @Override
     public void onAttachFragment(Fragment fragment) {
         if (hostActivityDelegate != null) {
             hostActivityDelegate.onAttachFragment(fragment);

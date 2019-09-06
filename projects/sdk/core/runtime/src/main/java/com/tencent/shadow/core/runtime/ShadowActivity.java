@@ -98,6 +98,10 @@ public abstract class ShadowActivity extends PluginActivity {
         return mHostActivityDelegator.findViewById(id);
     }
 
+    public final <T extends View> T requireViewById(int id) {
+        return mHostActivityDelegator.requireViewById(id);
+    }
+
     public WindowManager getWindowManager() {
         return mHostActivityDelegator.getWindowManager();
     }
