@@ -16,9 +16,16 @@
  *
  */
 
-package com.tencent.shadow.core.loader
+package com.tencent.shadow.dynamic.impl;
 
-interface Reporter {
-    fun reportException(exception: Exception)
-    fun log(msg: String)
+/**
+ * 此类包名及类名固定
+ * classLoader的白名单
+ * PluginLoader可以加载宿主中位于白名单内的类
+ */
+public interface WhiteList {
+    String[] sWhiteList = new String[]
+            {
+                    "com.tencent.shadow.sample.host.lib",
+            };
 }

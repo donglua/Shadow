@@ -19,10 +19,21 @@
 package com.tencent.shadow.sample.plugin.loader;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.res.Resources;
 
-import com.tencent.shadow.core.loader.Reporter;
+import com.tencent.shadow.core.common.InstalledApk;
+import com.tencent.shadow.core.load_parameters.LoadParameters;
 import com.tencent.shadow.core.loader.ShadowPluginLoader;
+import com.tencent.shadow.core.loader.classloaders.PluginClassLoader;
+import com.tencent.shadow.core.loader.exceptions.LoadPluginException;
+import com.tencent.shadow.core.loader.infos.PluginParts;
 import com.tencent.shadow.core.loader.managers.ComponentManager;
+import com.tencent.shadow.sample.host.lib.LoadPluginCallback;
+
+import java.util.concurrent.Future;
+
+import static android.content.pm.PackageManager.GET_META_DATA;
 
 public class SamplePluginLoader extends ShadowPluginLoader {
 
@@ -41,22 +52,32 @@ public class SamplePluginLoader extends ShadowPluginLoader {
     }
 
     @Override
-    public Reporter getMExceptionReporter() {
-        return new Reporter() {
-            @Override
-            public void reportException(Exception exception) {
-                android.util.Log.e(TAG, "reportException", exception);
-            }
+    public Future<?> loadPlugin(final InstalledApk installedApk) throws LoadPluginException {
+        LoadParameters loadParameters = getLoadParameters(installedApk);
+        final String partKey = loadParameters.partKey;
 
-            @Override
-            public void log(String msg) {
-                android.util.Log.i(TAG, msg);
-            }
-        };
-    }
+        LoadPluginCallback.getCallback().beforeLoadPlugin(partKey);
 
-    @Override
-    public String getMAbi() {
-        return "";
+        final Future<?> future = super.loadPlugin(installedApk);
+
+        getMExecutorService().submit(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    future.get();
+                    PluginParts pluginParts = getPluginParts(partKey);
+                    String packageName = pluginParts.getApplication().getPackageName();
+                    ApplicationInfo applicationInfo = pluginParts.getPluginPackageManager().getApplicationInfo(packageName, GET_META_DATA);
+                    PluginClassLoader classLoader = pluginParts.getClassLoader();
+                    Resources resources = pluginParts.getResources();
+
+                    LoadPluginCallback.getCallback().afterLoadPlugin(partKey, applicationInfo, classLoader, resources);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+        return future;
     }
 }

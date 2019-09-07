@@ -18,54 +18,44 @@
 
 package com.tencent.shadow.sample.plugin.app.lib.usecases.activity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.WindowManager;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.view.Menu;
 
 import com.tencent.shadow.sample.plugin.app.lib.R;
-import com.tencent.shadow.sample.plugin.app.lib.gallery.BaseActivity;
 import com.tencent.shadow.sample.plugin.app.lib.gallery.cases.entity.UseCase;
 
-
-public class TestActivityWindowSoftMode extends BaseActivity {
+public class TestActivityOptionMenu extends Activity {
 
     public static class Case extends UseCase {
         @Override
         public String getName() {
-            return "windowSoftInputMode测试";
+            return "Activity Menu测试";
         }
 
         @Override
         public String getSummary() {
-            return "测试插件中设置windowSoftInputMode是否生效";
+            return "测试Activity的 onCreateOptionsMenu";
         }
 
         @Override
         public Class getPageClass() {
-            return TestActivityWindowSoftMode.class;
+            return TestActivityOptionMenu.class;
         }
     }
 
-    private EditText mEditText;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        setTheme(R.style.PluginAppThemeLight);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_softmode);
-
-        WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
-        boolean is_state_visible = layoutParams.softInputMode == WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE;
-
-        TextView textView = findViewById(R.id.result);
-        textView.setText("SOFT_INPUT_STATE_VISIBLE:"+is_state_visible);
-
-        mEditText = findViewById(R.id.edit_view);
-        mEditText.requestFocus();
-
-
+        setContentView(R.layout.layout_activity_settheme);
+        setTitle("看右边的 menu ->");
     }
 
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.case_test_activity_option_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 }

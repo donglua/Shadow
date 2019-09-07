@@ -49,7 +49,7 @@ import kotlin.concurrent.withLock
 
 abstract class ShadowPluginLoader(hostAppContext: Context) : DelegateProvider, DI, ContentProviderDelegateProvider {
 
-    private val mExecutorService = Executors.newCachedThreadPool()
+    protected val mExecutorService = Executors.newCachedThreadPool()
 
     /**
      * loadPlugin方法是在子线程被调用的。而getHostActivityDelegate方法是在主线程被调用的。
@@ -73,8 +73,6 @@ abstract class ShadowPluginLoader(hostAppContext: Context) : DelegateProvider, D
      */
     abstract fun getComponentManager():ComponentManager
 
-    abstract val mExceptionReporter: Reporter
-
     /**
      * @GuardedBy("mLock")
      */
@@ -85,11 +83,6 @@ abstract class ShadowPluginLoader(hostAppContext: Context) : DelegateProvider, D
     private val mPluginContentProviderManager: PluginContentProviderManager = PluginContentProviderManager()
 
     private val mPluginServiceManagerLock = ReentrantLock()
-    /**
-     * 插件将要使用的so的ABI，Loader会将其从apk中解压出来。
-     * 如果插件不需要so，则返回""空字符串。
-     */
-    abstract val mAbi: String
 
     private val  mShadowRemoteViewCreatorProvider: ShadowRemoteViewCreatorProvider = ShadowRemoteViewCreatorProviderImpl()
 
@@ -149,7 +142,7 @@ abstract class ShadowPluginLoader(hostAppContext: Context) : DelegateProvider, D
     }
 
     @Throws(LoadPluginException::class)
-    fun loadPlugin(
+    open fun loadPlugin(
             installedApk: InstalledApk
     ): Future<*> {
         val loadParameters = installedApk.getLoadParameters()
@@ -206,7 +199,6 @@ abstract class ShadowPluginLoader(hostAppContext: Context) : DelegateProvider, D
                 delegate.inject(pluginParts.application)
                 delegate.inject(pluginParts.classLoader)
                 delegate.inject(pluginParts.resources)
-                delegate.inject(mExceptionReporter)
                 delegate.inject(mComponentManager)
                 delegate.inject(mShadowRemoteViewCreatorProvider)
             }
@@ -220,7 +212,7 @@ abstract class ShadowPluginLoader(hostAppContext: Context) : DelegateProvider, D
 
     }
 
-    private fun InstalledApk.getLoadParameters(): LoadParameters {
+    fun InstalledApk.getLoadParameters(): LoadParameters {
         val parcel = Parcel.obtain()
         parcel.unmarshall(parcelExtras, 0, parcelExtras.size)
         parcel.setDataPosition(0)

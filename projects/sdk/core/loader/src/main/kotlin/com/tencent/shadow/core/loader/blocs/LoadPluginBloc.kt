@@ -27,7 +27,7 @@ import com.tencent.shadow.core.load_parameters.LoadParameters
 import com.tencent.shadow.core.loader.exceptions.LoadPluginException
 import com.tencent.shadow.core.loader.infos.PluginParts
 import com.tencent.shadow.core.loader.managers.ComponentManager
-import com.tencent.shadow.core.loader.managers.PluginPackageManager
+import com.tencent.shadow.core.loader.managers.PluginPackageManagerImpl
 import com.tencent.shadow.core.runtime.PluginPartInfo
 import com.tencent.shadow.core.runtime.PluginPartInfoManager
 import com.tencent.shadow.core.runtime.ShadowContext
@@ -84,6 +84,7 @@ object LoadPluginBloc {
                 } else {
                     File(tempContext.filesDir, "dataDir")
                 }
+                dataDir.mkdirs()
 
                 packageArchiveInfo.applicationInfo.nativeLibraryDir = installedApk.libraryPath
                 packageArchiveInfo.applicationInfo.dataDir = dataDir.absolutePath
@@ -100,7 +101,7 @@ object LoadPluginBloc {
             val buildPackageManager = executorService.submit(Callable {
                 val packageInfo = getPackageInfo.get()
                 val hostPackageManager = hostAppContext.packageManager
-                PluginPackageManager(hostPackageManager, packageInfo, allPluginPackageInfo)
+                PluginPackageManagerImpl(hostPackageManager, packageInfo, allPluginPackageInfo)
             })
 
             val buildResources = executorService.submit(Callable {
@@ -140,7 +141,8 @@ object LoadPluginBloc {
                             shadowApplication,
                             pluginClassLoader,
                             resources,
-                            pluginInfo.businessName
+                            pluginInfo.businessName,
+                            pluginPackageManager
                     )
                     PluginPartInfoManager.addPluginInfo(pluginClassLoader, PluginPartInfo(shadowApplication, resources,
                             pluginClassLoader, pluginPackageManager))
@@ -150,7 +152,6 @@ object LoadPluginBloc {
             return buildRunningPlugin
         }
     }
-
 
 
 }
