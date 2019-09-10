@@ -281,4 +281,59 @@ public class MixResources extends ResourcesWrapper {
             return mHostResources.openRawResourceFd(id);
         }
     }
+
+    @Override
+    public String getResourcePackageName(int resid) throws NotFoundException {
+        try {
+            return super.getResourcePackageName(resid);
+        } catch (NotFoundException e) {
+            return mHostResources.getResourcePackageName(resid);
+        }
+    }
+
+    @Override
+    public String getResourceEntryName(int resid) throws NotFoundException {
+        try {
+            return super.getResourceEntryName(resid);
+        } catch (NotFoundException e) {
+            return mHostResources.getResourceEntryName(resid);
+        }
+    }
+
+    @Override
+    public String getResourceTypeName(int resid) throws NotFoundException {
+        try {
+            return super.getResourceTypeName(resid);
+        } catch (NotFoundException e) {
+            return mHostResources.getResourceTypeName(resid);
+        }
+    }
+
+    @Override
+    public void getValue(int id, TypedValue outValue, boolean resolveRefs) throws NotFoundException {
+        try {
+            super.getValue(id, outValue, resolveRefs);
+        } catch (NotFoundException e) {
+            mHostResources.getValue(id, outValue, resolveRefs);
+        }
+    }
+
+    @Override
+    public int getIdentifier(String name, String defType, String defPackage) {
+        try {
+            return super.getIdentifier(name, defType, defPackage);
+        } catch (Exception e) {
+            return mHostResources.getIdentifier(name, defType, defPackage);
+        }
+    }
+
+    @Override
+    public void getValue(String name, TypedValue outValue, boolean resolveRefs) throws NotFoundException {
+        try {
+            super.getValue(name, outValue, resolveRefs);
+        } catch (NotFoundException e) {
+            mHostResources.getValue(name, outValue, resolveRefs);
+        }
+    }
+
 }

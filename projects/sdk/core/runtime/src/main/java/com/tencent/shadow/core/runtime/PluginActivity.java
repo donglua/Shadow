@@ -364,4 +364,5 @@ public abstract class PluginActivity extends ShadowContext implements Window.Cal
     public boolean setSupportActionBar(Toolbar toolbar) {
         return mHostActivityDelegator.superSetSupportActionBar(toolbar);
     }
+
 }

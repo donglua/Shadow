@@ -87,6 +87,7 @@ import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.Toolbar;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
 import com.tencent.shadow.core.runtime.BuildConfig;
@@ -111,7 +112,7 @@ import static com.tencent.shadow.core.runtime.container.DelegateProvider.PROCESS
  *
  * @author cubershi
  */
-public class PluginContainerActivity extends FragmentActivity implements HostActivity, HostActivityDelegator {
+public class PluginContainerActivity extends AppCompatActivity implements HostActivity, HostActivityDelegator {
     private static final String TAG = "PluginContainerActivity";
 
     HostActivityDelegate hostActivityDelegate;
