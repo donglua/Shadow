@@ -32,7 +32,7 @@ public class PluginLoadActivity extends Activity {
 
     private ViewGroup mViewGroup;
 
-    private Handler mHandler = new Handler();
+//    private Handler mHandler = new Handler();
 
 
     @Override
@@ -60,25 +60,39 @@ public class PluginLoadActivity extends Activity {
 
                 HostApplication.getApp().getPluginManager()
                         .enter(PluginLoadActivity.this, Constant.FROM_ID_START_ACTIVITY, bundle, new EnterCallback() {
-                    @Override
-                    public void onShowLoadingView(final View view) {
-                        mHandler.post(new Runnable() {
                             @Override
-                            public void run() {
-                                mViewGroup.addView(view);
+                            public void onShowLoading(float percentage) {
+
                             }
-                        });
-                    }
 
-                    @Override
-                    public void onCloseLoadingView() {
-                        finish();
-                    }
+                            @Override
+                            public void onCloseLoading() {
 
-                    @Override
-                    public void onEnterComplete() {
+                            }
 
-                    }
+                            @Override
+                            public void onEnterComplete() {
+
+                            }
+//                    @Override
+//                    public void onShowLoadingView(final View view) {
+//                        mHandler.post(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                mViewGroup.addView(view);
+//                            }
+//                        });
+//                    }
+//
+//                    @Override
+//                    public void onCloseLoadingView() {
+//                        finish();
+//                    }
+//
+//                    @Override
+//                    public void onEnterComplete() {
+//
+//                    }
                 });
             }
         });

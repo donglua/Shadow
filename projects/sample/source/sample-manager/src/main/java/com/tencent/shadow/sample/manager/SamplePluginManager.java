@@ -95,8 +95,7 @@ public class SamplePluginManager extends FastPluginManager {
         final Bundle extras = bundle.getBundle(Constant.KEY_EXTRAS);
 
         if (callback != null) {
-            final View view = LayoutInflater.from(mCurrentContext).inflate(R.layout.activity_load_plugin, null);
-            callback.onShowLoadingView(view);
+            callback.onShowLoading(0.1f);
         }
 
         executorService.execute(new Runnable() {
@@ -118,7 +117,7 @@ public class SamplePluginManager extends FastPluginManager {
                     throw new RuntimeException(e);
                 }
                 if (callback != null) {
-                    callback.onCloseLoadingView();
+                    callback.onCloseLoading();
                 }
             }
         });
