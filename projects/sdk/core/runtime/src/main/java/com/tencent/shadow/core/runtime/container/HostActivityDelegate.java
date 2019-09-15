@@ -33,6 +33,7 @@ import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -152,4 +153,6 @@ public interface HostActivityDelegate {
     boolean onSupportNavigateUp();
 
     boolean setSupportActionBar(Toolbar toolbar);
+
+    boolean onOptionsItemSelected(MenuItem item);
 }

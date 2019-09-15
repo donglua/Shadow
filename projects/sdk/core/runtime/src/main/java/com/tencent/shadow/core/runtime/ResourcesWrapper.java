@@ -34,6 +34,8 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
+import androidx.core.content.res.ResourcesCompat;
+
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
@@ -44,7 +46,7 @@ public class ResourcesWrapper extends Resources {
     private Resources mBase;
 
     public ResourcesWrapper(Resources base){
-        super(base.getAssets(),base.getDisplayMetrics(),base.getConfiguration());
+        super(base.getAssets(), base.getDisplayMetrics(), base.getConfiguration());
         mBase = base;
     }
 
@@ -131,28 +133,24 @@ public class ResourcesWrapper extends Resources {
 
     @Override
     public Drawable getDrawable(int id) throws NotFoundException {
-        return mBase.getDrawable(id);
+        return getDrawable(id, null);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public Drawable getDrawable(int id, Theme theme) throws NotFoundException {
-        return mBase.getDrawable(id, theme);
+        return ResourcesCompat.getDrawable(mBase, id, theme);
     }
 
     @Override
     public Drawable getDrawableForDensity(int id, int density) throws NotFoundException {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-            return mBase.getDrawableForDensity(id, density);
-        } else {
-            return null;
-        }
+        return getDrawableForDensity(id, density, null);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public Drawable getDrawableForDensity(int id, int density, Theme theme) {
-        return mBase.getDrawableForDensity(id, density, theme);
+        return ResourcesCompat.getDrawableForDensity(mBase, id, density, theme);
     }
 
     @Override
@@ -162,24 +160,24 @@ public class ResourcesWrapper extends Resources {
 
     @Override
     public int getColor(int id) throws NotFoundException {
-        return mBase.getColor(id);
+        return getColor(id, null);
     }
 
     @TargetApi(Build.VERSION_CODES.M)
     @Override
     public int getColor(int id, Theme theme) throws NotFoundException {
-        return mBase.getColor(id, theme);
+        return ResourcesCompat.getColor(mBase, id, theme);
     }
 
     @Override
     public ColorStateList getColorStateList(int id) throws NotFoundException {
-        return mBase.getColorStateList(id);
+        return getColorStateList(id, null);
     }
 
     @TargetApi(Build.VERSION_CODES.M)
     @Override
     public ColorStateList getColorStateList(int id, Theme theme) throws NotFoundException {
-        return mBase.getColorStateList(id, theme);
+        return ResourcesCompat.getColorStateList(mBase, id, theme);
     }
 
     @Override

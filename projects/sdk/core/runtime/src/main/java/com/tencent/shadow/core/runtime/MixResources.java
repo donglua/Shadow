@@ -21,13 +21,20 @@ package com.tencent.shadow.core.runtime;
 import android.annotation.TargetApi;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
 import android.graphics.Movie;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
+
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.res.ResourcesCompat;
 
 import java.io.InputStream;
 
@@ -96,11 +103,7 @@ public class MixResources extends ResourcesWrapper {
 
     @Override
     public Drawable getDrawable(int id) throws NotFoundException {
-        try {
-            return super.getDrawable(id);
-        } catch (NotFoundException e) {
-            return mHostResources.getDrawable(id);
-        }
+        return getDrawable(id, null);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -109,21 +112,18 @@ public class MixResources extends ResourcesWrapper {
         try {
             return super.getDrawable(id, theme);
         } catch (NotFoundException e) {
-            return mHostResources.getDrawable(id,theme);
+            try {
+                return ResourcesCompat.getDrawable(mHostResources, id, theme);
+            } catch (NotFoundException ex) {
+                Log.e("MixResources", "getDrawable", ex);
+                return null;
+            }
         }
     }
 
     @Override
     public Drawable getDrawableForDensity(int id, int density) throws NotFoundException {
-        try {
-            return super.getDrawableForDensity(id, density);
-        } catch (NotFoundException e) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-                return mHostResources.getDrawableForDensity(id, density);
-            } else {
-                return null;
-            }
-        }
+        return getDrawableForDensity(id, density, null);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -132,25 +132,22 @@ public class MixResources extends ResourcesWrapper {
         try {
             return super.getDrawableForDensity(id, density, theme);
         } catch (Exception e) {
-            return mHostResources.getDrawableForDensity(id,density,theme);
+            return ResourcesCompat.getDrawableForDensity(mHostResources, id, density, theme);
         }
     }
 
     @Override
     public int getColor(int id) throws NotFoundException {
-        try {
-            return super.getColor(id);
-        } catch (NotFoundException e) {
-            return mHostResources.getColor(id);
-        }
+        return getColor(id, null);
     }
+
     @TargetApi(Build.VERSION_CODES.M)
     @Override
     public int getColor(int id, Theme theme) throws NotFoundException {
         try {
-            return super.getColor(id,theme);
+            return super.getColor(id, theme);
         } catch (NotFoundException e) {
-            return mHostResources.getColor(id,theme);
+            return ResourcesCompat.getColor(mHostResources, id, theme);
         }
     }
 
@@ -336,4 +333,57 @@ public class MixResources extends ResourcesWrapper {
         }
     }
 
+    @Override
+    public void getValueForDensity(int id, int density, TypedValue outValue, boolean resolveRefs) throws NotFoundException {
+        try {
+            super.getValueForDensity(id, density, outValue, resolveRefs);
+        } catch (NotFoundException e) {
+            mHostResources.getValueForDensity(id, density, outValue, resolveRefs);
+        }
+    }
+
+    @Override
+    public CharSequence[] getTextArray(int id) throws NotFoundException {
+        try {
+            return super.getTextArray(id);
+        } catch (NotFoundException e) {
+            return mHostResources.getTextArray(id);
+        }
+    }
+
+    @Override
+    public float getFraction(int id, int base, int pbase) {
+        try {
+            return super.getFraction(id, base, pbase);
+        } catch (Exception e) {
+            return mHostResources.getFraction(id, base, pbase);
+        }
+    }
+
+    @Override
+    public TypedArray obtainAttributes(AttributeSet set, int[] attrs) {
+        try {
+            return super.obtainAttributes(set, attrs);
+        } catch (Exception e) {
+            return mHostResources.obtainAttributes(set, attrs);
+        }
+    }
+
+    @Override
+    public TypedArray obtainTypedArray(int id) throws NotFoundException {
+        try {
+            return super.obtainTypedArray(id);
+        } catch (NotFoundException e) {
+            return mHostResources.obtainTypedArray(id);
+        }
+    }
+
+    @Override
+    public Configuration getConfiguration() {
+        try {
+            return super.getConfiguration();
+        } catch (Exception e) {
+            return mHostResources.getConfiguration();
+        }
+    }
 }

@@ -19,6 +19,7 @@
 package com.tencent.shadow.core.runtime.container;
 
 import android.view.KeyEvent;
+import android.view.MenuItem;
 
 /**
  * 插件的容器Activity。PluginLoader将把插件的Activity放在其中。
@@ -50,7 +51,16 @@ public class PluginCompatContainerActivity extends PluginContainerActivity {
         if (hostActivityDelegate != null) {
             return hostActivityDelegate.dispatchKeyEvent(event);
         } else {
-            return false; // super.dispatchKeyEvent(event);
+            return superDispatchKeyEvent(event);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (hostActivityDelegate != null) {
+            return hostActivityDelegate.onOptionsItemSelected(item);
+        } else {
+            return superOnOptionsItemSelected(item);
         }
     }
 }

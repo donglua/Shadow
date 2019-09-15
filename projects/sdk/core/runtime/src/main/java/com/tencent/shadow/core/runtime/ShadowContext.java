@@ -95,7 +95,7 @@ public class ShadowContext extends SubDirContextThemeWrapper {
 
     @Override
     public Context getApplicationContext() {
-        return mShadowApplication;
+        return mShadowApplication == null ? this : mShadowApplication;
     }
 
     @Override

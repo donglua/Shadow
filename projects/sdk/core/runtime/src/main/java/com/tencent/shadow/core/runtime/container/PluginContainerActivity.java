@@ -112,7 +112,7 @@ import static com.tencent.shadow.core.runtime.container.DelegateProvider.PROCESS
  *
  * @author cubershi
  */
-public class PluginContainerActivity extends AppCompatActivity implements HostActivity, HostActivityDelegator {
+public class PluginContainerActivity extends FragmentActivity implements HostActivity, HostActivityDelegator {
     private static final String TAG = "PluginContainerActivity";
 
     HostActivityDelegate hostActivityDelegate;

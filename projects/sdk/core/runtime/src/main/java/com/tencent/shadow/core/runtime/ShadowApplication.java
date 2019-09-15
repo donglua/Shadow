@@ -111,7 +111,6 @@ public abstract class ShadowApplication extends ShadowContext {
         mHostApplication.registerComponentCallbacks(callback);
     }
 
-
     public void unregisterComponentCallbacks(ComponentCallbacks callback) {
         mHostApplication.unregisterComponentCallbacks(callback);
     }
