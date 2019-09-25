@@ -33,9 +33,12 @@ import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+
+import androidx.appcompat.widget.Toolbar;
 
 /**
  * HostActivity的被委托者接口
@@ -72,6 +75,10 @@ public interface HostActivityDelegate {
     boolean onKeyUp(int keyCode, KeyEvent event);
 
     boolean onKeyDown(int keyCode, KeyEvent event);
+
+    boolean onKeyMultiple(int keyCode, int repeatCount, KeyEvent event);
+
+    boolean onKeyLongPress(int keyCode, KeyEvent event);
 
     void finish();
 
@@ -150,4 +157,10 @@ public interface HostActivityDelegate {
     void onMultiWindowModeChanged(boolean isInMultiWindowMode);
 
     void onMultiWindowModeChanged(boolean isInMultiWindowMode, Configuration newConfig);
+
+    boolean onSupportNavigateUp();
+
+    boolean setSupportActionBar(Toolbar toolbar);
+
+    boolean onOptionsItemSelected(MenuItem item);
 }

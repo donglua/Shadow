@@ -226,6 +226,14 @@ class ShadowActivityDelegate(private val mDI: DI) : HostActivityDelegate, Shadow
         return mPluginActivity.onKeyUp(keyCode, event)
     }
 
+    override fun onKeyMultiple(keyCode: Int, repeatCount: Int, event: KeyEvent?): Boolean {
+        return mPluginActivity.onKeyMultiple(keyCode, repeatCount, event)
+    }
+
+    override fun onKeyLongPress(keyCode: Int, event: KeyEvent?): Boolean {
+        return mPluginActivity.onKeyLongPress(keyCode, event)
+    }
+
     override fun finish() {
         mPluginActivity.finish()
     }
@@ -399,5 +407,17 @@ class ShadowActivityDelegate(private val mDI: DI) : HostActivityDelegate, Shadow
 
     override fun onMultiWindowModeChanged(isInMultiWindowMode: Boolean, newConfig: Configuration?) {
         mPluginActivity.onMultiWindowModeChanged(isInMultiWindowMode, newConfig)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return mPluginActivity.onSupportNavigateUp()
+    }
+
+    override fun setSupportActionBar(toolbar: androidx.appcompat.widget.Toolbar?): Boolean {
+        return mPluginActivity.setSupportActionBar(toolbar)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return mPluginActivity.onOptionsItemSelected(item)
     }
 }
