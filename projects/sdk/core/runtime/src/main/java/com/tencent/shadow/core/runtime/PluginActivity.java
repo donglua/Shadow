@@ -48,7 +48,7 @@ import com.tencent.shadow.core.runtime.container.HostActivityDelegator;
 
 import java.util.List;
 
-public abstract class PluginActivity extends ShadowContext implements Window.Callback {
+public abstract class PluginActivity extends ShadowContext implements Window.Callback, KeyEvent.Callback {
     HostActivityDelegator mHostActivityDelegator;
 
     ShadowApplication mPluginApplication;
