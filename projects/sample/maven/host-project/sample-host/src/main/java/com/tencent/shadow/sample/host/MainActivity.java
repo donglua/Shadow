@@ -34,22 +34,22 @@ public class MainActivity extends Activity {
                 v.setEnabled(false);//防止点击重入
 
                 PluginManager pluginManager = InitApplication.getPluginManager();
-                pluginManager.enter(MainActivity.this, FROM_ID_START_ACTIVITY, new Bundle(), new EnterCallback() {
-                    @Override
-                    public void onShowLoadingView(View view) {
-                        MainActivity.this.setContentView(view);//显示Manager传来的Loading页面
-                    }
-
-                    @Override
-                    public void onCloseLoadingView() {
-                        MainActivity.this.setContentView(linearLayout);
-                    }
-
-                    @Override
-                    public void onEnterComplete() {
-                        v.setEnabled(true);
-                    }
-                });
+//                pluginManager.enter(MainActivity.this, FROM_ID_START_ACTIVITY, new Bundle(), new EnterCallback() {
+//                    @Override
+//                    public void onShowLoadingView(View view) {
+//                        MainActivity.this.setContentView(view);//显示Manager传来的Loading页面
+//                    }
+//
+//                    @Override
+//                    public void onCloseLoadingView() {
+//                        MainActivity.this.setContentView(linearLayout);
+//                    }
+//
+//                    @Override
+//                    public void onEnterComplete() {
+//                        v.setEnabled(true);
+//                    }
+//                });
             }
         });
 
