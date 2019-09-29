@@ -288,4 +288,9 @@ public class ResourcesWrapper extends Resources {
     public void parseBundleExtra(String tagName, AttributeSet attrs, Bundle outBundle) throws XmlPullParserException {
         mBase.parseBundleExtra(tagName, attrs, outBundle);
     }
+
+    @Override
+    public void updateConfiguration(Configuration config, DisplayMetrics metrics) {
+        mBase.updateConfiguration(config, metrics);
+    }
 }
