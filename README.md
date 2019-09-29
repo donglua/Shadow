@@ -1,3 +1,7 @@
+# Fork from [tencent/Shadow](https://github.com/Tencent/Shadow)
+
+    兼容 AndroidX
+
 # Shadow
 
 Shadow的设计细节将在掘金持续分享:https://juejin.im/user/5d12faee6fb9a07ed8425178/posts
