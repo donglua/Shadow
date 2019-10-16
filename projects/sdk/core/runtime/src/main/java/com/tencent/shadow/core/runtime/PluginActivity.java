@@ -73,6 +73,10 @@ public abstract class PluginActivity extends ShadowContext implements Window.Cal
         mHostActivityDelegator.superOnResume();
     }
 
+    public void onPostResume() {
+        mHostActivityDelegator.superOnPostResume();
+    }
+
     public void onNewIntent(Intent intent) {
         mHostActivityDelegator.superOnNewIntent(intent);
     }

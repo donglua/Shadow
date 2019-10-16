@@ -56,6 +56,8 @@ public interface HostActivityDelegate {
 
     void onResume();
 
+    void onPostResume();
+
     void onNewIntent(Intent intent);
 
     void onSaveInstanceState(Bundle outState);
