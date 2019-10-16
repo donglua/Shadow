@@ -216,6 +216,8 @@ public interface HostActivityDelegator {
 
     <T extends View> T findViewById(int id);
 
+    <T extends View> T requireViewById(int id);
+
     ActionBar getActionBar();
 
     void setActionBar(Toolbar toolbar);
@@ -1326,4 +1328,8 @@ public interface HostActivityDelegator {
     void superOnActionModeFinished(ActionMode mode);
 
     void superOnPointerCaptureChanged(boolean hasCapture);
+
+    boolean superOnSupportNavigateUp();
+
+    boolean superSetSupportActionBar(androidx.appcompat.widget.Toolbar toolbar);
 }

@@ -46,14 +46,15 @@ public class JumpToPluginActivity extends Activity {
         idlingResource.setIdleState(false);
         HostApplication.getApp().getPluginManager()
                 .enter(this, Constant.FROM_ID_START_ACTIVITY, bundle, new EnterCallback() {
+
                     @Override
-                    public void onShowLoadingView(View view) {
+                    public void onShowLoading(float percentage) {
 
                     }
 
                     @Override
-                    public void onCloseLoadingView() {
-                        idlingResource.setIdleState(true);
+                    public void onCloseLoading() {
+
                     }
 
                     @Override

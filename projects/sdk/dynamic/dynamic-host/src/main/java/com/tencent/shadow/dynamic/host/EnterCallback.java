@@ -18,13 +18,11 @@
 
 package com.tencent.shadow.dynamic.host;
 
-import android.view.View;
-
 public interface EnterCallback {
 
-    void onShowLoadingView(View view);
+    void onShowLoading(float percentage);
 
-    void onCloseLoadingView();
+    void onCloseLoading();
 
     void onEnterComplete();
 }

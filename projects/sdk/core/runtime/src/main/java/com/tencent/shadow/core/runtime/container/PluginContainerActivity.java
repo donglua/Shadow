@@ -199,6 +199,14 @@ public class PluginContainerActivity extends Activity implements HostActivity, H
         }
     }
 
+    @Override protected void onPostResume() {
+        if(hostActivityDelegate != null) {
+          hostActivityDelegate.onPostResume();
+        } else {
+          super.onPostResume();
+        }
+    }
+
     @Override
     protected void onNewIntent(Intent intent) {
         if (hostActivityDelegate != null) {
@@ -280,6 +288,24 @@ public class PluginContainerActivity extends Activity implements HostActivity, H
             return hostActivityDelegate.dispatchKeyEvent(event);
         } else {
             return super.dispatchKeyEvent(event);
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (hostActivityDelegate != null) {
+            return hostActivityDelegate.onKeyDown(keyCode, event);
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (hostActivityDelegate != null) {
+            return hostActivityDelegate.onKeyUp(keyCode, event);
+        } else {
+            return super.onKeyUp(keyCode, event);
         }
     }
 
@@ -1872,16 +1898,17 @@ public class PluginContainerActivity extends Activity implements HostActivity, H
         return super.onKeyDown(keyCode, event);
     }
 
-    public boolean superOnKeyLongPress(int keyCode, KeyEvent event) {
-        return super.onKeyLongPress(keyCode, event);
-    }
-
     public boolean superOnKeyUp(int keyCode, KeyEvent event) {
         return super.onKeyUp(keyCode, event);
     }
 
     public boolean superOnKeyMultiple(int keyCode, int repeatCount, KeyEvent event) {
         return super.onKeyMultiple(keyCode, repeatCount, event);
+    }
+
+    @Override
+    public boolean superOnKeyLongPress(int keyCode, KeyEvent event) {
+        return super.onKeyLongPress(keyCode, event);
     }
 
     public void superOnBackPressed() {
@@ -2175,6 +2202,34 @@ public class PluginContainerActivity extends Activity implements HostActivity, H
             hostActivityDelegate.onMultiWindowModeChanged(isInMultiWindowMode, newConfig);
         } else {
             super.onMultiWindowModeChanged(isInMultiWindowMode, newConfig);
+        }
+    }
+
+    // --------------------------------------- 新增 ------------------------------------------------
+
+    public boolean superOnSupportNavigateUp() {
+        if (hostActivityDelegate != null) {
+            return hostActivityDelegate.onSupportNavigateUp();
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean superSetSupportActionBar(androidx.appcompat.widget.Toolbar toolbar) {
+        if (hostActivityDelegate != null) {
+            return hostActivityDelegate.setSupportActionBar(toolbar);
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (hostActivityDelegate != null) {
+            return hostActivityDelegate.onOptionsItemSelected(item);
+        } else {
+            return superOnOptionsItemSelected(item);
         }
     }
 }

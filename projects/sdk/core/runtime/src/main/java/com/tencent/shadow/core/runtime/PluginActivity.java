@@ -42,11 +42,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 
+import androidx.appcompat.widget.Toolbar;
+
 import com.tencent.shadow.core.runtime.container.HostActivityDelegator;
 
 import java.util.List;
 
-public abstract class PluginActivity extends ShadowContext implements Window.Callback {
+public abstract class PluginActivity extends ShadowContext implements Window.Callback, KeyEvent.Callback {
     HostActivityDelegator mHostActivityDelegator;
 
     ShadowApplication mPluginApplication;
@@ -69,6 +71,10 @@ public abstract class PluginActivity extends ShadowContext implements Window.Cal
 
     public void onResume() {
         mHostActivityDelegator.superOnResume();
+    }
+
+    public void onPostResume() {
+        mHostActivityDelegator.superOnPostResume();
     }
 
     public void onNewIntent(Intent intent) {
@@ -249,6 +255,18 @@ public abstract class PluginActivity extends ShadowContext implements Window.Cal
         return mHostActivityDelegator.superOnKeyDown(keyCode, event);
     }
 
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        return mHostActivityDelegator.superOnKeyUp(keyCode, event);
+    }
+
+    public boolean onKeyMultiple(int keyCode, int repeatCount, KeyEvent event) {
+        return mHostActivityDelegator.superOnKeyMultiple(keyCode, repeatCount, event);
+    }
+
+    public boolean onKeyLongPress(int keyCode, KeyEvent event) {
+        return mHostActivityDelegator.superOnKeyLongPress(keyCode, event);
+    }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         return mHostActivityDelegator.superOnOptionsItemSelected(item);
     }
@@ -339,4 +357,13 @@ public abstract class PluginActivity extends ShadowContext implements Window.Cal
     public void onMultiWindowModeChanged(boolean isInMultiWindowMode, Configuration newConfig) {
         mHostActivityDelegator.superOnMultiWindowModeChanged(isInMultiWindowMode, newConfig);
     }
+
+    public boolean onSupportNavigateUp() {
+        return mHostActivityDelegator.superOnSupportNavigateUp();
+    }
+
+    public boolean setSupportActionBar(Toolbar toolbar) {
+        return mHostActivityDelegator.superSetSupportActionBar(toolbar);
+    }
+
 }

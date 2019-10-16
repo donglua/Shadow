@@ -165,6 +165,10 @@ class ShadowActivityDelegate(private val mDI: DI) : HostActivityDelegate, Shadow
         mPluginActivity.onResume()
     }
 
+    override fun onPostResume() {
+        mPluginActivity.onPostResume()
+    }
+
     override fun onNewIntent(intent: Intent) {
         val pluginExtras: Bundle? = intent.getBundleExtra(CM_EXTRAS_BUNDLE_KEY)
         intent.replaceExtras(pluginExtras)
@@ -216,6 +220,22 @@ class ShadowActivityDelegate(private val mDI: DI) : HostActivityDelegate, Shadow
 
     override fun dispatchKeyEvent(event: KeyEvent): Boolean {
         return mPluginActivity.dispatchKeyEvent(event)
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        return mPluginActivity.onKeyDown(keyCode, event)
+    }
+
+    override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
+        return mPluginActivity.onKeyUp(keyCode, event)
+    }
+
+    override fun onKeyMultiple(keyCode: Int, repeatCount: Int, event: KeyEvent?): Boolean {
+        return mPluginActivity.onKeyMultiple(keyCode, repeatCount, event)
+    }
+
+    override fun onKeyLongPress(keyCode: Int, event: KeyEvent?): Boolean {
+        return mPluginActivity.onKeyLongPress(keyCode, event)
     }
 
     override fun finish() {
@@ -391,5 +411,17 @@ class ShadowActivityDelegate(private val mDI: DI) : HostActivityDelegate, Shadow
 
     override fun onMultiWindowModeChanged(isInMultiWindowMode: Boolean, newConfig: Configuration?) {
         mPluginActivity.onMultiWindowModeChanged(isInMultiWindowMode, newConfig)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return mPluginActivity.onSupportNavigateUp()
+    }
+
+    override fun setSupportActionBar(toolbar: androidx.appcompat.widget.Toolbar?): Boolean {
+        return mPluginActivity.setSupportActionBar(toolbar)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return mPluginActivity.onOptionsItemSelected(item)
     }
 }
