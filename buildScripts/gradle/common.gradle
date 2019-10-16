@@ -11,8 +11,8 @@ allprojects {
     ext.COMPILE_SDK_VERSION = 28
     ext.MIN_SDK_VERSION = 16
     ext.TARGET_SDK_VERSION = 28
-    ext.VERSION_CODE = 48
-    ext.VERSION_NAME = "2.2.9"
+    ext.VERSION_CODE = 49
+    ext.VERSION_NAME = "2.2.10"
     if ("${System.env.PUBLISH_RELEASE}".equalsIgnoreCase("true")) {
         ext.VERSION_SUFFIX = ""
     } else if ("${System.env.ORANGE}".equalsIgnoreCase("true")) {
