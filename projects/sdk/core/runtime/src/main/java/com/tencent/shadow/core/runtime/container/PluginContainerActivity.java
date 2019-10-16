@@ -199,6 +199,14 @@ public class PluginContainerActivity extends Activity implements HostActivity, H
         }
     }
 
+    @Override protected void onPostResume() {
+        if(hostActivityDelegate != null) {
+          hostActivityDelegate.onPostResume();
+        } else {
+          super.onPostResume();
+        }
+    }
+
     @Override
     protected void onNewIntent(Intent intent) {
         if (hostActivityDelegate != null) {

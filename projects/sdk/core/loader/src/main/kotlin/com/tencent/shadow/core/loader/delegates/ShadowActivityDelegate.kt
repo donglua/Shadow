@@ -165,6 +165,10 @@ class ShadowActivityDelegate(private val mDI: DI) : HostActivityDelegate, Shadow
         mPluginActivity.onResume()
     }
 
+    override fun onPostResume() {
+        mPluginActivity.onPostResume()
+    }
+
     override fun onNewIntent(intent: Intent) {
         val pluginExtras: Bundle? = intent.getBundleExtra(CM_EXTRAS_BUNDLE_KEY)
         intent.replaceExtras(pluginExtras)
