@@ -290,12 +290,12 @@ public abstract class BasePluginManager {
             suc = false;
         }
         if (part.oDexDir != null) {
-            if (!part.oDexDir.delete()) {
+            if (!deleteRecursive(part.oDexDir)) {
                 suc = false;
             }
         }
         if (part.libraryDir != null) {
-            if (!part.libraryDir.delete()) {
+            if (!deleteRecursive(part.libraryDir)) {
                 suc = false;
             }
         }
@@ -310,5 +310,14 @@ public abstract class BasePluginManager {
      */
     public String getAbi() {
         return null;
+    }
+
+    boolean deleteRecursive(File fileOrDirectory) {
+        if (fileOrDirectory.isDirectory()) {
+            for (File child : fileOrDirectory.listFiles()) {
+                deleteRecursive(child);
+            }
+        }
+        return fileOrDirectory.delete();
     }
 }
