@@ -291,6 +291,10 @@ public class ResourcesWrapper extends Resources {
 
     @Override
     public void updateConfiguration(Configuration config, DisplayMetrics metrics) {
-        mBase.updateConfiguration(config, metrics);
+        if (mBase != null) {
+            mBase.updateConfiguration(config, metrics);
+        } else { // updateConfiguration会在 6.0 及以下设备的 Resources 类构造方法被调用，此时 mBase 为空
+            super.updateConfiguration(config, metrics);
+        }
     }
 }
