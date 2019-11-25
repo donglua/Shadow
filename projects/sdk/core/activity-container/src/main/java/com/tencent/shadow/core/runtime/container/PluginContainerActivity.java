@@ -87,8 +87,7 @@ import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.Toolbar;
 
-import com.tencent.shadow.core.runtime.BuildConfig;
-import com.tencent.shadow.core.runtime.ShadowActivity;
+import com.tencent.shadow.core.container.BuildConfig;
 
 import java.io.File;
 import java.io.FileDescriptor;
@@ -133,9 +132,7 @@ public class PluginContainerActivity extends Activity implements HostActivity, H
         if (hostActivityDelegate != null) {
             return hostActivityDelegate.getPluginActivity();
         } else {
-            //在遇到IllegalIntent时hostActivityDelegate==null。需要返回一个空的Activity避免Crash。
-            return new ShadowActivity() {
-            };
+            return null;
         }
     }
 
@@ -2238,6 +2235,15 @@ public class PluginContainerActivity extends Activity implements HostActivity, H
             hostActivityDelegate.onMultiWindowModeChanged(isInMultiWindowMode, newConfig);
         } else {
             super.onMultiWindowModeChanged(isInMultiWindowMode, newConfig);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (hostActivityDelegate != null) {
+            return hostActivityDelegate.onOptionsItemSelected(item);
+        } else {
+            return super.onOptionsItemSelected(item);
         }
     }
 }
