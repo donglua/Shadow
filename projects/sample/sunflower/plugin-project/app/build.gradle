@@ -89,6 +89,11 @@ dependencies {
 apply plugin: 'com.tencent.shadow.plugin'
 
 shadow {
+
+    def _whiteList = [
+        "androidx.**",
+    ]
+
     packagePlugin {
         pluginTypes {
             debug {
@@ -101,6 +106,7 @@ shadow {
                         buildTask = 'assembleDebug'
                         apkName = 'app-debug.apk'
                         apkPath = 'app/build/outputs/apk/debug/app-debug.apk'
+                        hostWhiteList = _whiteList
                     }
                 }
             }
@@ -115,6 +121,7 @@ shadow {
                         buildTask = 'assembleRelease'
                         apkName = 'app-release.apk'
                         apkPath = 'app/build/outputs/apk/release/app-release.apk'
+                        hostWhiteList = _whiteList
                     }
                 }
             }

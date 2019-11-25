@@ -23,6 +23,8 @@ android {
 dependencies {
     implementation project(':introduce-shadow-lib')
 
+    implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
+
     //如果introduce-shadow-lib发布到Maven，在pom中写明此依赖，宿主就不用写这个依赖了。
     implementation "com.tencent.shadow.dynamic:host:$shadow_version"
 }
